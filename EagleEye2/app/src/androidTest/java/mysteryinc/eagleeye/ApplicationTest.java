@@ -11,6 +11,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     //Jon Rach was here.......
     //Jon's new test line
     public ApplicationTest() {
+        // Testing comment
         super(Application.class);
     }
 }
