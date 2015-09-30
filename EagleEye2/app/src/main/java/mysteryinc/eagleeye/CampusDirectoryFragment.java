@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+// Laga inserted a commnet in  the CampusDirectoryFragment.java
 public class CampusDirectoryFragment extends Fragment {
 
     /**
