@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+// wetter huete, nichte ver
 // Laga inserted a commnet in  the CampusDirectoryFragment.java
 public class CampusDirectoryFragment extends Fragment {
 
