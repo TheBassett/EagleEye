@@ -15,6 +15,7 @@ public class LiveLocatorFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "test";
     private static final int SECTION_NUMBER = 0;
     private static LiveLocatorFragment _instance;
+    private String photopath;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -36,5 +37,15 @@ public class LiveLocatorFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.live_locator_fragment, container, false);
         return rootView;
+    }
+
+    public void setText(String string) {
+        // Method to set the text in the overlay
+    }
+
+    public String takePicture() {
+        // Method to open the camera and allow the user to take a picture.
+        // Returns a string to the location of the photograph
+        return photopath;
     }
 }
