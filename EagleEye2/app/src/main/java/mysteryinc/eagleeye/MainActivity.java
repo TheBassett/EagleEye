@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    //commenting for git push as opencv will not push to git
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
