@@ -1,6 +1,6 @@
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
+EagleEye2/.gradle
+EagleEye2/local.properties
+EagleEye2/.idea/workspace.xml
+EagleEye2/.idea/libraries
+EagleEye2/.DS_Store
+EagleEye2/build
