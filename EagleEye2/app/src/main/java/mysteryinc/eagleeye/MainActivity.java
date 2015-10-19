@@ -113,4 +113,10 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    //  Code for the comparing the images of the realtime system and the database
+
+
 }
