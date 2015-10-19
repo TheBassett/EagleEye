@@ -11,4 +11,12 @@
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"/>
+
+    <Button
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Picture"
+        android:id="@+id/picture_button"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>
