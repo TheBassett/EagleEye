@@ -193,6 +193,7 @@ public class LiveLocatorFragment extends Fragment {
         //Method to call database comparison methods from OpenCV
         //Has input of the photo path of photo to be compared to database
         //returns the String name of the building name to be inserted into the overlay
+        //ORB Image Matching Algorithm found online will be implemented
         return buildingname;
     }
 }
