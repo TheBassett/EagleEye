@@ -170,6 +170,14 @@ public class LiveLocatorFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.live_locator_fragment, container, false);
         Button picture = (Button) rootView.findViewById(R.id.picture_button);
+        //Testing adding some functionality
+        Button testOverlayText = (Button) rootView.findViewById(R.id.test_overlay_button);
+        testOverlayText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setOverlayText("Tested by Jess!");
+            }
+        });
         picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,6 +189,9 @@ public class LiveLocatorFragment extends Fragment {
 
     public void setOverlayText(String string) {
         // Method to set the text in the overlay
+        Activity activity = getActivity();
+        Toast toast = Toast.makeText(activity, string, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public String takePicture() {
