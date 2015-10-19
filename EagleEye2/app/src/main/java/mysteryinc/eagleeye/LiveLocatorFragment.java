@@ -39,7 +39,7 @@ public class LiveLocatorFragment extends Fragment {
         return rootView;
     }
 
-    public void setText(String string) {
+    public void setOverlayText(String string) {
         // Method to set the text in the overlay
     }
 
@@ -47,5 +47,12 @@ public class LiveLocatorFragment extends Fragment {
         // Method to open the camera and allow the user to take a picture.
         // Returns a string to the location of the photograph
         return photopath;
+    }
+
+    public String buildingCompare (String photopath) {
+        //Method to call database comparison methods from OpenCV
+        //Has input of the photo path of photo to be compared to database
+        //returns the String name of the building name to be inserted into the overlay
+        return buildingname;
     }
 }
