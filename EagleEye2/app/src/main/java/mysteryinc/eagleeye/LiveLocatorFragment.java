@@ -15,7 +15,8 @@ public class LiveLocatorFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "test";
     private static final int SECTION_NUMBER = 0;
     private static LiveLocatorFragment _instance;
-    private String photopath;
+    private String photopath = "";
+    private String buildingname = "";
 
     /**
      * Returns a new instance of this fragment for the given section
