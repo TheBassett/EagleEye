@@ -38,4 +38,5 @@ public class CampusDirectoryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.campus_directory_fragment, container, false);
         return rootView;
     }
+
 }
