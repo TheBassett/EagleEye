@@ -1,10 +1,5 @@
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDMatch;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
 import org.opencv.highgui.Highgui;
 import org.opencv.core.MatOfKeyPoint;
 import org.opencv.features2d.DMatch;
@@ -12,9 +7,6 @@ import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.features2d.FeatureDetector;
 import org.opencv.features2d.Features2d;
-import org.opencv.features2d.KeyPoint;
-import org.opencv.imgproc.Imgproc;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,8 +17,8 @@ import java.util.List;
 class DetectBuilding {
   public void run() {
 
-	  Mat image1 = Highgui.imread("/Users/JessUpde/Desktop/CS225_Workspace/ImageDetectingTest/COAS_3.JPG");
-	  Mat image2 = Highgui.imread("/Users/JessUpde/Desktop/CS225_Workspace/ImageDetectingTest/COAS_2.JPG");
+	  Mat image1 = Highgui.imread("/Users/joelvandepolder/EagleEye/Eagle Eye Database/COAS_3.JPG");
+	  Mat image2 = Highgui.imread("/Users/joelvandepolder/EagleEye/Eagle Eye Database/COAS_2.JPG");
 	  
       FeatureDetector orbDetector = FeatureDetector.create(FeatureDetector.ORB);
       DescriptorExtractor orbextractor = DescriptorExtractor.create(DescriptorExtractor.ORB);
