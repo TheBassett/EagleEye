@@ -1,12 +1,15 @@
 package mysteryinc.eagleeye;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -20,6 +23,35 @@ public class MainActivity extends AppCompatActivity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+///////
+    public static MainActivity _instance;
+
+    private static Toast m_currentToast;
+
+    public static MainActivity getInstance() {
+        if (_instance == null) {
+            _instance = new MainActivity();
+            Log.e("Startup Error", "Bad instance created");
+        }
+        return _instance;
+    }
+
+    public MainActivity(){
+        _instance = this;
+    }
+
+    public static void toast(String msg) {
+        if (m_currentToast != null) {
+            m_currentToast.cancel();
+        }
+        m_currentToast = Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT);
+        m_currentToast.show();
+    }
+
+    public static Context getContext(){
+        return getInstance().getContext();
+    }
+///////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
