@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +34,11 @@ public class LiveLocatorFragment extends Fragment {
     private static LiveLocatorFragment _instance;
     private String photopath = "";
     private String buildingname = "";
+
+    private static String ExternalStorageDirectoryPath;
+    private static String PictureDirPath;
+    private static File pictureFilePath;
+    private static boolean fileDirValid;
 
     /**
      * ************************* START COPYRIGHT MATERIAL *************************
@@ -87,6 +95,7 @@ public class LiveLocatorFragment extends Fragment {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
+                ex.printStackTrace();
                 Toast toast = Toast.makeText(activity, "There was a problem saving the photo...", Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -110,12 +119,12 @@ public class LiveLocatorFragment extends Fragment {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
+//        File storageDir = Environment.getExternalStoragePublicDirectory(
+//                Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
-                storageDir      /* directory */
+                pictureFilePath      /* directory */ //storageDir
         );
 
         // Save a file: path for use with ACTION_VIEW intents
@@ -172,6 +181,21 @@ public class LiveLocatorFragment extends Fragment {
         Button picture = (Button) rootView.findViewById(R.id.picture_button);
         //Testing adding some functionality
         Button testOverlayText = (Button) rootView.findViewById(R.id.test_overlay_button);
+
+        ExternalStorageDirectoryPath =
+                Environment.getExternalStorageDirectory().getAbsolutePath();
+        PictureDirPath = ExternalStorageDirectoryPath + "/EagleEyeTempPics/";
+        pictureFilePath = new File(PictureDirPath);
+        pictureFilePath.mkdirs();
+        if (!pictureFilePath.isDirectory()) {
+//            Toast.makeText(MainActivity.getContext(), "Picture Directory Failed", Toast.LENGTH_LONG).show();
+            Log.e("Startup Error", "Bad file directory");
+            MainActivity.toast("Picture directory failed");
+            fileDirValid = false;
+        } else {
+            fileDirValid = true;
+        }
+
         testOverlayText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,7 +205,12 @@ public class LiveLocatorFragment extends Fragment {
         picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dispatchTakePictureIntent();
+                if(fileDirValid) {
+                    MainActivity.toast("Taking picture?");
+                    dispatchTakePictureIntent();
+                } else {
+                    MainActivity.toast("Invalid picture directory - bad developer");
+                }
             }
         });
         return rootView;

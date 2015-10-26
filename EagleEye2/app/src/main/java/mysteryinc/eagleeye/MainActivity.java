@@ -48,9 +48,9 @@ public class MainActivity extends AppCompatActivity
         m_currentToast.show();
     }
 
-    public static Context getContext(){
-        return getInstance().getContext();
-    }
+//    public static Context getContext(){
+//        return getInstance().getContext();
+//    }
 ///////
 
     @Override
