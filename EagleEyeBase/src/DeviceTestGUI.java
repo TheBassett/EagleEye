@@ -12,9 +12,13 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 
 public class DeviceTestGUI extends Application {
@@ -36,6 +40,20 @@ public class DeviceTestGUI extends Application {
 	
 	//Instantiate image tools
 	ImageView campusPic;
+	
+	//Method to display a popup with the matching building name passed by software
+	public void popup(String s) {
+		Window stage = null;
+		final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+		dialog.initOwner(stage);
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.getChildren().add(new Text(s));
+        Scene dialogScene = new Scene(dialogVbox, 200, 50);
+        dialog.setScene(dialogScene);
+        dialog.show();
+    }
+	
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -65,6 +83,8 @@ public class DeviceTestGUI extends Application {
 		stage.setTitle("Eagle Eye Test GUI");
 		stage.show();
 		
+		
+		
 		//Get Image Event Listener
 		takePic.setOnMouseClicked(e ->{
 			//Switch to image display tab
@@ -78,6 +98,8 @@ public class DeviceTestGUI extends Application {
 				BufferedImage bufImg = ImageIO.read(file);
 				Image image = SwingFXUtils.toFXImage(bufImg, null);
 				campusPic.setImage(image);
+				popup("The matching building is _____."); //Call method to display building name and pass matching building name
+				
 				
 				//Method for Image Processing and Recognition
 				
@@ -90,6 +112,7 @@ public class DeviceTestGUI extends Application {
 			
 		});
 	}
+	
 	
 	public static void main(String[] args){
 		launch(args);
