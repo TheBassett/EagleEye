@@ -1,9 +1,13 @@
 package javaTestApp;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
@@ -54,6 +58,41 @@ public class PicProcessing {
 		
 	}
 	
+	public void DectectObject2(String loc){
+System.load("/usr/local/Cellar/opencv/2.4.12/share/OpenCV/java/libopencv_java2412.dylib");
+		
+		Mat frame = new Mat();
+		Mat blurredImage = new Mat();
+		Mat hsvImage = new Mat();
+		Mat mask = new Mat();
+		Mat morphOutput = new Mat();
+		
+		frame = Highgui.imread(loc);
+		
+		Imgproc.blur(frame, blurredImage, new Size(7, 7));
+		
+		Imgproc.cvtColor(blurredImage, hsvImage, Imgproc.COLOR_BGR2HSV);
+		
+		Scalar minValues = new Scalar(10, 60, 50);
+		Scalar maxValues = new Scalar(150, 200, 300);
+		
+		Core.inRange(hsvImage, minValues, maxValues, mask);
+		
+		Mat dilateElement = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(24, 24));
+		Mat erodeElement = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(12, 12));
+		
+		Imgproc.erode(mask, morphOutput, erodeElement);
+		Imgproc.erode(mask, morphOutput, erodeElement);
+		
+		Imgproc.dilate(mask, morphOutput, dilateElement);
+		Imgproc.dilate(mask, morphOutput, dilateElement);
+		
+		frame = findAndDrawBalls(morphOutput, frame);
+		
+		Highgui.imwrite("result.jpeg", frame);
+		result = "The image is a square";
+	}
+	
 	public Mat img2Mat(BufferedImage in){
 		Mat out;
         byte[] data;
@@ -89,6 +128,8 @@ public class PicProcessing {
 	}
 
 	public BufferedImage mat2Img(Mat in){
+
+		
         BufferedImage out;
         byte[] data = new byte[320 * 240 * (int)in.elemSize()];
         int type;
@@ -104,4 +145,25 @@ public class PicProcessing {
         out.getRaster().setDataElements(0, 0, 320, 240, data);
         return out;
     } 
+	
+	private Mat findAndDrawBalls(Mat maskedImage, Mat frame){
+		// init
+		List<MatOfPoint> contours = new ArrayList<>();
+		Mat hierarchy = new Mat();
+		
+		// find contours
+		Imgproc.findContours(maskedImage, contours, hierarchy, Imgproc.RETR_CCOMP, Imgproc.CHAIN_APPROX_SIMPLE);
+		
+		// if any contour exist...
+		if (hierarchy.size().height > 0 && hierarchy.size().width > 0)
+		{
+			// for each contour, display it in blue
+			for (int idx = 0; idx >= 0; idx = (int) hierarchy.get(0, idx)[0])
+			{
+				Imgproc.drawContours(frame, contours, idx, new Scalar(250, 0, 0), 3);
+			}
+		}
+		
+		return frame;
+	}
 }

@@ -1,7 +1,6 @@
 package javaTestApp;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
 import javax.imageio.ImageIO;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
@@ -97,7 +96,7 @@ public class DeviceTestGUI extends Application {
 			
 			//Take in image to display
 			try {
-				picnic.DetectObject(file.getAbsolutePath());
+				picnic.DectectObject2(file.getAbsolutePath());
 				File done = new File("/Users/joelvandepolder/EagleEye/EagleEyeBase/result.jpeg");
 				BufferedImage bufImg = ImageIO.read(done);
 				Image hope = SwingFXUtils.toFXImage(bufImg, null);
