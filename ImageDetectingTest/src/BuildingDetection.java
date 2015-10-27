@@ -17,8 +17,8 @@ import java.util.List;
 class DetectBuilding {
   public void run() {
 
-	  Mat image1 = Highgui.imread("/Users/joelvandepolder/EagleEye/Eagle Eye Database/COAS_3.JPG");
-	  Mat image2 = Highgui.imread("/Users/joelvandepolder/EagleEye/Eagle Eye Database/COAS_2.JPG");
+	  Mat image1 = Highgui.imread("/Users/joelvandepolder/EagleEye/Eagle Eye Database/circ.JPG");
+	  Mat image2 = Highgui.imread("/Users/joelvandepolder/EagleEye/Eagle Eye Database/square.png");
 	  
       FeatureDetector orbDetector = FeatureDetector.create(FeatureDetector.ORB);
       DescriptorExtractor orbextractor = DescriptorExtractor.create(DescriptorExtractor.ORB);
@@ -63,6 +63,7 @@ class DetectBuilding {
           }
         }
        System.out.println(good_matches);
+       System.out.println(min_dist + " and " + max_dist);
        Mat image3 = image1.clone();
        Features2d.drawMatches(image1, keypoints_object, image2, keypoints_scene, matches, image3);
        Highgui.imwrite("result_match.jpeg", image3); 

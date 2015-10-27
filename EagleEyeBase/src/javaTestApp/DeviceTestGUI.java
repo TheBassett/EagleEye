@@ -1,8 +1,8 @@
+package javaTestApp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
-
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
@@ -41,6 +41,9 @@ public class DeviceTestGUI extends Application {
 	//Instantiate image tools
 	ImageView campusPic;
 	
+	//Instantiate PicProcessing class
+	PicProcessing picnic = new PicProcessing();
+	
 	//Method to display a popup with the matching building name passed by software
 	public void popup(String s) {
 		Window stage = null;
@@ -57,7 +60,6 @@ public class DeviceTestGUI extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		
 		
 		//Set Up file I/O
 		choosePic.getExtensionFilters().add(new ExtensionFilter("Picture", "*.jpg"));
@@ -95,17 +97,20 @@ public class DeviceTestGUI extends Application {
 			
 			//Take in image to display
 			try {
-				BufferedImage bufImg = ImageIO.read(file);
-				Image image = SwingFXUtils.toFXImage(bufImg, null);
-				campusPic.setImage(image);
-				popup("The matching building is _____."); //Call method to display building name and pass matching building name
-				
+				picnic.DetectObject(file.getAbsolutePath());
+				File done = new File("/Users/joelvandepolder/EagleEye/EagleEyeBase/result.jpeg");
+				BufferedImage bufImg = ImageIO.read(done);
+				Image hope = SwingFXUtils.toFXImage(bufImg, null);
+				campusPic.setImage(hope);
+				popup(picnic.result); //Call method to display building name and pass matching building name
+				//System.out.println();
 				
 				//Method for Image Processing and Recognition
 				
 			}catch (Exception e1){
 				System.out.println("Error in Picture get");
 				System.out.println("Exiting Program");
+				e1.printStackTrace();
 				System.exit(404);
 			}
 			
