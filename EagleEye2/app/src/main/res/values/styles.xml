@@ -3,6 +3,14 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/riddleBlue</item>
+        <!--<item name="android:actionMenuTextColor">@color/riddleYellow</item>-->
     </style>
 
+    <color name="riddleBlue">#00549A</color>
+    <color name="riddleYellow">#FECC67</color>
+    <color name="riddleGold">#A29061</color>
+
+
+    <color name="navDrawer">@color/riddleBlue</color>
 </resources>
