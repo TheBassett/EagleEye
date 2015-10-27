@@ -32,7 +32,7 @@ public class LiveLocatorFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "test";
     private static final int SECTION_NUMBER = 0;
     private static LiveLocatorFragment _instance;
-    private String photopath = "";
+//    private String photopath = "";
     private String buildingname = "";
 
     private static String ExternalStorageDirectoryPath;
@@ -70,16 +70,16 @@ public class LiveLocatorFragment extends Fragment {
     static final int REQUEST_TAKE_PHOTO = 11111;
 
     /**
-     * Start the camera by dispatching a camera intent.
+     * Start the camera by dispatching a camera intent. Returns a string location to the photo.
      */
-    protected void dispatchTakePictureIntent() {
+    private String takePicture() {
         // Check if there is a camera.
         Context context = getActivity();
         PackageManager packageManager = context.getPackageManager();
         if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false){
             Toast.makeText(getActivity(), "This device does not have a camera.", Toast.LENGTH_SHORT)
                     .show();
-            return;
+            return "";
         }
 
         // Camera exists? Then proceed...
@@ -87,10 +87,10 @@ public class LiveLocatorFragment extends Fragment {
 
         // Ensure that there's a camera activity to handle the intent
         Activity activity = getActivity();
+        File photoFile = null;
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
             // Create the File where the photo should go.
             // If you don't do this, you may get a crash in some devices.
-            File photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
@@ -109,6 +109,7 @@ public class LiveLocatorFragment extends Fragment {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
+        return photoFile.getAbsolutePath();
     }
     /**
      * Creates the image file to which the image must be saved.
@@ -205,9 +206,9 @@ public class LiveLocatorFragment extends Fragment {
         picture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fileDirValid) {
+                if (fileDirValid) {
                     MainActivity.toast("Taking picture?");
-                    dispatchTakePictureIntent();
+                    takePicture();
                 } else {
                     MainActivity.toast("Invalid picture directory - bad developer");
                 }
@@ -221,12 +222,6 @@ public class LiveLocatorFragment extends Fragment {
         Activity activity = getActivity();
         Toast toast = Toast.makeText(activity, string, Toast.LENGTH_SHORT);
         toast.show();
-    }
-
-    public String takePicture() {
-        // Method to open the camera and allow the user to take a picture.
-        // Returns a string to the location of the photograph
-        return photopath;
     }
 
     public String buildingCompare (String photopath) {
