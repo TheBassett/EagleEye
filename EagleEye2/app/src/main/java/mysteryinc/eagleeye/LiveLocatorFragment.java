@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +29,7 @@ public class LiveLocatorFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "test";
     private static final int SECTION_NUMBER = 0;
     private static LiveLocatorFragment _instance;
-//    private String photopath = "";
+    //    private String photopath = "";
     private String buildingname = "";
 
     private static String ExternalStorageDirectoryPath;
@@ -74,11 +71,8 @@ public class LiveLocatorFragment extends Fragment {
      */
     private String takePicture() {
         // Check if there is a camera.
-        Context context = getActivity();
-        PackageManager packageManager = context.getPackageManager();
-        if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false){
-            Toast.makeText(getActivity(), "This device does not have a camera.", Toast.LENGTH_SHORT)
-                    .show();
+        if (deviceMissingCamera()) {
+            MainActivity.toast("This device does not have a camera.");
             return "";
         }
 
@@ -96,8 +90,7 @@ public class LiveLocatorFragment extends Fragment {
             } catch (IOException ex) {
                 // Error occurred while creating the File
                 ex.printStackTrace();
-                Toast toast = Toast.makeText(activity, "There was a problem saving the photo...", Toast.LENGTH_SHORT);
-                toast.show();
+                MainActivity.toast("There was a problem saving the photo...");
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -111,8 +104,16 @@ public class LiveLocatorFragment extends Fragment {
         }
         return photoFile.getAbsolutePath();
     }
+
+    private boolean deviceMissingCamera() {
+        Context context = getActivity();
+        PackageManager packageManager = context.getPackageManager();
+        return !packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA);
+    }
+
     /**
      * Creates the image file to which the image must be saved.
+     *
      * @return
      * @throws IOException
      */
@@ -136,6 +137,7 @@ public class LiveLocatorFragment extends Fragment {
 
     /**
      * The activity returns with the photo.
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -150,8 +152,7 @@ public class LiveLocatorFragment extends Fragment {
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mImageView);
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mThumbnailImageView);
         } else {
-            Toast.makeText(getActivity(), "Image Capture Failed", Toast.LENGTH_SHORT)
-                    .show();
+            MainActivity.toast("Image Capture Failed");
         }
     }
 
@@ -179,10 +180,33 @@ public class LiveLocatorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.live_locator_fragment, container, false);
-        Button picture = (Button) rootView.findViewById(R.id.picture_button);
+
+        verifyPictureDirectory();
+
         //Testing adding some functionality
         Button testOverlayText = (Button) rootView.findViewById(R.id.test_overlay_button);
+        testOverlayText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.toast("Testing Toast!");
+            }
+        });
 
+        Button picture = (Button) rootView.findViewById(R.id.picture_button);
+        picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fileDirValid) {
+                    takePicture();
+                } else {
+                    MainActivity.toast("Invalid picture directory - bad developer");
+                }
+            }
+        });
+        return rootView;
+    }
+
+    private void verifyPictureDirectory() {
         ExternalStorageDirectoryPath =
                 Environment.getExternalStorageDirectory().getAbsolutePath();
         PictureDirPath = ExternalStorageDirectoryPath + "/EagleEyeTempPics/";
@@ -196,35 +220,9 @@ public class LiveLocatorFragment extends Fragment {
         } else {
             fileDirValid = true;
         }
-
-        testOverlayText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setOverlayText("Tested by Jess!");
-            }
-        });
-        picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (fileDirValid) {
-                    MainActivity.toast("Taking picture?");
-                    takePicture();
-                } else {
-                    MainActivity.toast("Invalid picture directory - bad developer");
-                }
-            }
-        });
-        return rootView;
     }
 
-    public void setOverlayText(String string) {
-        // Method to set the text in the overlay
-        Activity activity = getActivity();
-        Toast toast = Toast.makeText(activity, string, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    public String buildingCompare (String photopath) {
+    public String buildingCompare(String photopath) {
         //Method to call database comparison methods from OpenCV
         //Has input of the photo path of photo to be compared to database
         //returns the String name of the building name to be inserted into the overlay
