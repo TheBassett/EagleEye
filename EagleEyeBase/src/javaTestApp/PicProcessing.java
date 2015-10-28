@@ -17,6 +17,8 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.objdetect.Objdetect;
 
+
+//Much of this Code was constructed with assitstance from examples found at: opencv-java-tutorials.redthedoc.org/en/latest/#
 public class PicProcessing {
 
 	private  static CascadeClassifier faceCascade;
@@ -24,20 +26,28 @@ public class PicProcessing {
 	String result;
 	
 	public void DetectObject(String loc){
+		//Load Library
 		System.load("/usr/local/Cellar/opencv/2.4.12/share/OpenCV/java/libopencv_java2412.dylib");
 		
+		//Instantiate types for use within method.  Mat is the data type used by opencv
 		Mat mat1 = new Mat();
 		MatOfRect bldg = new MatOfRect();
 		Mat grayFrame = new Mat();
-		faceCascade = new CascadeClassifier();
+		
+		//Instantiate a Cascade classifier and read in one that has been trained
+		faceCascade = new CascadeClassifier(); //Create 
 		faceCascade.load("/Users/joelvandepolder/Desktop/cascade.xml");
 		
-		
+		//Grab selected image and convert to Mat
 		mat1 = Highgui.imread(loc);
+		
+		//Convert to Grayscale image
 		Imgproc.cvtColor(mat1, grayFrame, Imgproc.COLOR_BGR2GRAY);
 		
+		//Equalizes the histogram of grayscale image
 		Imgproc.equalizeHist(grayFrame, grayFrame);
 		
+		//Set minimum face sizes
 		if (absoluteFaceSize == 0){
 			int height = grayFrame.rows();
 			if (Math.round(height * 0.2f) > 0)
@@ -46,38 +56,53 @@ public class PicProcessing {
 			}
 		}
 		
+		//Use Cascade to find objects that it is trained for
 		faceCascade.detectMultiScale(grayFrame, bldg, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE, new Size(
 				absoluteFaceSize, absoluteFaceSize), new Size());
+		
+		//Draw rectangles around faces
 		Rect[] facesArray = bldg.toArray();
 		for (int i = 0; i < facesArray.length; i++)
 			Core.rectangle(mat1, facesArray[i].tl(), facesArray[i].br(), new Scalar(0, 255, 0, 255), 3);
 		
-		result = "The image is a square";
-		Highgui.imwrite("result.jpeg", mat1);
-		//return mat2Img(mat1);
 		
+		//Save String for building result
+		result = "The image is a square";
+		
+		//Save result Image
+		Highgui.imwrite("result.jpeg", mat1);
 	}
 	
 	public void DectectObject2(String loc){
-System.load("/usr/local/Cellar/opencv/2.4.12/share/OpenCV/java/libopencv_java2412.dylib");
+		//Load Library
+		System.load("/usr/local/Cellar/opencv/2.4.12/share/OpenCV/java/libopencv_java2412.dylib");
 		
+		//Instantiate types for use within method.  Mat is the data type used by opencv
 		Mat frame = new Mat();
 		Mat blurredImage = new Mat();
 		Mat hsvImage = new Mat();
 		Mat mask = new Mat();
 		Mat morphOutput = new Mat();
 		
+		//Grab selected image and convert to Mat
 		frame = Highgui.imread(loc);
 		
+		//Blurs an image using the normalized box filter.
 		Imgproc.blur(frame, blurredImage, new Size(7, 7));
 		
+		//BGR to Hue, Saturation, and value image
 		Imgproc.cvtColor(blurredImage, hsvImage, Imgproc.COLOR_BGR2HSV);
 		
+		//Set minimum values for hue, saturation, and value
 		Scalar minValues = new Scalar(10, 60, 50);
-		Scalar maxValues = new Scalar(150, 200, 300);
 		
+		//Set Maximum values for hue, saturation, and value
+		Scalar maxValues = new Scalar(200, 200, 255);
+		
+		//Checks if array elements lie between the elements of two other arrays.
 		Core.inRange(hsvImage, minValues, maxValues, mask);
 		
+		//Create Dilate and erode image
 		Mat dilateElement = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(24, 24));
 		Mat erodeElement = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(12, 12));
 		
@@ -87,12 +112,17 @@ System.load("/usr/local/Cellar/opencv/2.4.12/share/OpenCV/java/libopencv_java241
 		Imgproc.dilate(mask, morphOutput, dilateElement);
 		Imgproc.dilate(mask, morphOutput, dilateElement);
 		
+		//Find Contours and objects
 		frame = findAndDrawBalls(morphOutput, frame);
 		
+		//Save result Image
 		Highgui.imwrite("result.jpeg", frame);
+		
+		//Save String for building result
 		result = "The image is a square";
 	}
 	
+	//Class to convert Java BufferedImage to OpenCV Mat
 	public Mat img2Mat(BufferedImage in){
 		Mat out;
         byte[] data;
@@ -127,6 +157,7 @@ System.load("/usr/local/Cellar/opencv/2.4.12/share/OpenCV/java/libopencv_java241
          return out;
 	}
 
+	//Class to convert OpenCV Mat to Java BufferedImage
 	public BufferedImage mat2Img(Mat in){
 
 		

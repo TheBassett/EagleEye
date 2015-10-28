@@ -22,8 +22,11 @@ import javafx.stage.Window;
 
 public class DeviceTestGUI extends Application {
 	
+	//Dimension for Stage
 	private int h = 750;
 	private int w = 1000;
+	
+	
 	//Border Panes
 	BorderPane border1 = new BorderPane();
 	BorderPane border2 = new BorderPane();
