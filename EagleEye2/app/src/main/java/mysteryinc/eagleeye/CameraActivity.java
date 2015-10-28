@@ -1,4 +1,5 @@
-/*
+/**
+ *
  * Copyright (c) 2014 Rex St. John on behalf of AirPair.com
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
