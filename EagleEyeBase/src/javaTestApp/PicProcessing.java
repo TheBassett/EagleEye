@@ -18,13 +18,20 @@ import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.objdetect.Objdetect;
 
 
-//Much of this Code was constructed with assitstance from examples found at: opencv-java-tutorials.redthedoc.org/en/latest/#
+//Much of this Code was constructed with assistance from examples found at: opencv-java-tutorials.redthedoc.org/en/latest/#
+/**
+ * @author Team Scooby Doo
+ * This class contains the methods that OpenCV uses to calculate and return image types and image matches. 
+ */
 public class PicProcessing {
 
 	private  static CascadeClassifier faceCascade;
 	private static int absoluteFaceSize;
 	String result;
 	
+	/**Method used to detect objects within an inputted image to compare to facial recognition software
+	 * @param loc passes in the file system location of the image to be checked
+	 */
 	public void DetectObject(String loc){
 		//Load Library
 		System.load("/usr/local/Cellar/opencv/2.4.12/share/OpenCV/java/libopencv_java2412.dylib");
@@ -39,7 +46,7 @@ public class PicProcessing {
 		faceCascade.load("/Users/joelvandepolder/Desktop/cascade.xml");
 		
 		//Grab selected image and convert to Mat
-		mat1 = Highgui.imread(loc);
+		mat1 = Highgui.imread(loc); //Uses code for Highgui which is not in OpenCV ver 3.0 ****REVIEW FOR SPRINT 2****
 		
 		//Convert to Grayscale image
 		Imgproc.cvtColor(mat1, grayFrame, Imgproc.COLOR_BGR2GRAY);
@@ -73,6 +80,9 @@ public class PicProcessing {
 		Highgui.imwrite("result.jpeg", mat1);
 	}
 	
+	/**Loads in image and finds the contours within the image to determine general building shape.
+	 * @param loc passes in the location of the image of which contours wish to be found
+	 */
 	public void DectectObject2(String loc){
 		//Load Library
 		System.load("/usr/local/Cellar/opencv/2.4.12/share/OpenCV/java/libopencv_java2412.dylib");
@@ -123,6 +133,10 @@ public class PicProcessing {
 	}
 	
 	//Class to convert Java BufferedImage to OpenCV Mat
+	/**Method used to load a Java Buffered image and convert it to the Matrix form required by OpenCV
+	 * @param in passes in a Java Buffered image to be converted to Mat form
+	 * @return an image in Mat form for use by OpenCV Library
+	 */
 	public Mat img2Mat(BufferedImage in){
 		Mat out;
         byte[] data;
@@ -158,6 +172,10 @@ public class PicProcessing {
 	}
 
 	//Class to convert OpenCV Mat to Java BufferedImage
+	/**Method used to convert an OpenCV Matrix form to a Java Buffered image for output by system
+	 * @param in passes in the Matrix to be converted to Java Buffered image
+	 * @return an image in the Java Buffered image format
+	 */
 	public BufferedImage mat2Img(Mat in){
 
 		
@@ -177,6 +195,11 @@ public class PicProcessing {
         return out;
     } 
 	
+	/**Method to find the contours of a passed building and display them back onto the photo
+	 * @param maskedImage passes in a masked image of which the contours will be found
+	 * @param frame passes in a frame of which the contours will be drawn on
+	 * @return the frame with the contours drawn on it
+	 */
 	private Mat findAndDrawBalls(Mat maskedImage, Mat frame){
 		// init
 		List<MatOfPoint> contours = new ArrayList<>();
