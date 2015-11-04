@@ -16,6 +16,8 @@ import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 import org.opencv.objdetect.Objdetect;
+import org.bytedeco.javacpp.opencv_core.*;
+
 
 
 //Much of this Code was constructed with assistance from examples found at: opencv-java-tutorials.redthedoc.org/en/latest/#
