@@ -121,7 +121,7 @@ public class DeviceTestGUI extends Application {
 			
 			//Take in image to display
 			try {
-				picnic.DectectObject2(file.getAbsolutePath());
+				picnic.DetectObject(file.getAbsolutePath());
 				File done = new File("/Users/joelvandepolder/EagleEye/EagleEyeBase/result.jpeg");
 				BufferedImage bufImg = ImageIO.read(done);
 				Image hope = SwingFXUtils.toFXImage(bufImg, null);
