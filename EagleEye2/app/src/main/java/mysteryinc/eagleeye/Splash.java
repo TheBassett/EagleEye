@@ -21,6 +21,7 @@ public class Splash extends Activity {
         setContentView(R.layout.splashscreen);
 
         // Trying to change font
+        // http://stackoverflow.com/questions/2888508/how-to-change-the-font-on-the-textview
         Typeface tf = Typeface.createFromAsset(getAssets(),
                 "fonts/sansserif.ttf");
         TextView tv =(TextView)findViewById(R.id.title);
