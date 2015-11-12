@@ -20,6 +20,12 @@ public class Splash extends Activity {
         super.onCreate(icicle);
         setContentView(R.layout.splashscreen);
 
+        // Trying to change font
+        Typeface tf = Typeface.createFromAsset(getAssets(),
+                "fonts/sansserif.ttf");
+        TextView tv =(TextView)findViewById(R.id.title);
+        tv.setTypeface(tf);
+
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
         new Handler().postDelayed(new Runnable(){
