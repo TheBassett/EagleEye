@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.content.Intent;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -57,6 +58,8 @@ public class NavigationDrawerFragment extends Fragment {
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+    public final static String EXTRA_MESSAGE = "mysteryinc.eagleeye";
+
 
     public NavigationDrawerFragment() {
     }
@@ -247,10 +250,25 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-//        if (item.getItemId() == R.id.action_example) {
-//            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
+        // This method creates an intent and displays an about message.
+        if (item.getItemId() == R.id.action_about) {
+
+            // Testing
+            Intent intent = new Intent(this.getActivity(), DisplayAbout.class);
+            String message = "This app was designed for the Fall 2015 SE 300 class with Dr. Jafer by the following developers:\n\n" +
+                    "Team Lead: Jessica Updegrove\n" +
+                    "Android Lead: Alex Bassett\n" +
+                    "Android Team: Alex Bassett, Jonathon Rach, Jessica Updegrove (assistance)\n" +
+                    "Image Processing Team: Dean Laga, Joel Vande Polder, Jessica Updegrove (assistance)\n" +
+                    "\nThis app is meant to be used on the ERAU DB campus to assist visitors, alumni, and new students as they" +
+                    " explore the ever-changing campus. To use, take a picture of a building on campus and the app will process " +
+                    "the image and return the name of the building. Additional features, such as a campus map and building directory " +
+                    "will be added in future versions.\n\nHave fun and we hope you enjoy the app.";
+            intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
+
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

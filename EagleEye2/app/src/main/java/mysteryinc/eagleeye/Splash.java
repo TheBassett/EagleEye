@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class Splash extends Activity {
 
     /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 3000;
+    private final int SPLASH_DISPLAY_LENGTH = 6000;
 
     /** Called when the activity is first created. */
     @Override
@@ -28,6 +28,10 @@ public class Splash extends Activity {
                 "fonts/sansserif.ttf");
         TextView tv =(TextView)findViewById(R.id.title);
         tv.setTypeface(tf);
+
+        // More testing to check if I'm actually accessing things
+        TextView splash_info =(TextView)findViewById(R.id.splash_info);
+        splash_info.setTypeface(null, Typeface.ITALIC);
 
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/

@@ -15,10 +15,25 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="EagleEye"
+        android:text="@string/splash_text"
         android:textSize="70sp"
-        android:textColor="@color/riddleYellow" />
+        android:textColor="@color/riddleYellow"
+        android:layout_marginTop="90dp"
+        android:typeface="sans" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="225dp"
+        android:text="@string/splash_text2"
+        android:id="@+id/splash_info"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/riddleYellow"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:typeface="sans" />
 </LinearLayout>

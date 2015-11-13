@@ -183,15 +183,6 @@ public class LiveLocatorFragment extends Fragment {
 
         verifyPictureDirectory();
 
-        //Testing adding some functionality
-        Button testOverlayText = (Button) rootView.findViewById(R.id.test_overlay_button);
-        testOverlayText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.toast("Testing Toast!");
-            }
-        });
-
         Button picture = (Button) rootView.findViewById(R.id.picture_button);
         picture.setOnClickListener(new View.OnClickListener() {
             @Override
