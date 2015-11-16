@@ -51,12 +51,16 @@ public class JavaCV_PicProcessing {
     	Mat img = imread(path);
     	findBLDG(img, found);
     	
+    	int[] results = new int[(int) found.size()];
+    	
+    	
     	for (long n = 0; n < found.size(); n++ ){
     		Rect tmpRect = found.get(n);
 			Mat tmpMat = new Mat(img, tmpRect);
 			
 			int id = BLDGRecognizer(path);
-			 System.out.print(id);
+			results[(int) n] = id;
+			System.out.print(id);
     	}
     	
     	return null;
