@@ -1,20 +1,18 @@
-/*package mysteryinc.eagleeye;
+package mysteryinc.eagleeye;
 
 /**
  * Created by jonathanrach on 11/20/15.
- /*
+ */
 
-
-        import static org.bytedeco.javacpp.opencv_face.createLBPHFaceRecognizer;
-        import static org.bytedeco.javacpp.opencv_imgcodecs.*;
-
-        import org.bytedeco.javacpp.opencv_core.Mat;
-        import org.bytedeco.javacpp.opencv_core.Rect;
-        import org.bytedeco.javacpp.opencv_core.RectVector;
-        import org.bytedeco.javacpp.opencv_core.Size;
-        import org.bytedeco.javacpp.opencv_face.FaceRecognizer;
-        import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
-        import org.bytedeco.javacpp.opencv_imgproc;
+import static org.bytedeco.javacpp.opencv_face.createLBPHFaceRecognizer;
+import static org.bytedeco.javacpp.opencv_imgcodecs.*;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.Rect;
+import org.bytedeco.javacpp.opencv_core.RectVector;
+import org.bytedeco.javacpp.opencv_core.Size;
+import org.bytedeco.javacpp.opencv_face.FaceRecognizer;
+import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
+import org.bytedeco.javacpp.opencv_imgproc;
 
 public class Android_JavaCV_Implementation {
 
@@ -139,4 +137,3 @@ public class Android_JavaCV_Implementation {
     }
 
 }
-*/
