@@ -1,2 +1,2 @@
-include ':app', ':libraries'
+include ':app', ':libraries', ':javacpp', ':javacv'
 include ':libraries:opencv'

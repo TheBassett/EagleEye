@@ -1,4 +1,4 @@
-package javaTestApp;
+package mysteryinc.eagleeye;
 
 import static org.bytedeco.javacpp.opencv_face.createLBPHFaceRecognizer;
 import static org.bytedeco.javacpp.opencv_imgcodecs.*;
