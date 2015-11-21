@@ -21,10 +21,11 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.0.1'
     compile project(':libraries:opencv')
-    compile 'org.bytedeco:javacv:+'
-    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.0.0', classifier:'android-arm'
+    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.0.0', classifier: 'android-arm'
     //compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '3.0.0', classifier:'android-arm'
 
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'org.bytedeco:javacv:+'
+    compile 'com.android.support:design:23.1.1'
 }

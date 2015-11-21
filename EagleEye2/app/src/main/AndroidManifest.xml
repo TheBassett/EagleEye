@@ -51,6 +51,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mysteryinc.eagleeye.MainActivity" />
         </activity>
+        <activity
+            android:name=".DisplayBuildingNameActivity"
+            android:label="@string/title_activity_display_building_name"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mysteryinc.eagleeye.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

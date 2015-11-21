@@ -26,6 +26,7 @@ public class LiveLocatorFragment extends Fragment {
      * The fragment argument representing the section number for this
      * fragment.
      */
+    public static final String EXTRA_MSG = "mysteryinc.eagleeye";
     private static final String ARG_SECTION_NUMBER = "test";
     private static final int SECTION_NUMBER = 0;
     private static LiveLocatorFragment _instance;
@@ -36,7 +37,7 @@ public class LiveLocatorFragment extends Fragment {
     private static String PictureDirPath;
     private static File pictureFilePath;
     private static boolean fileDirValid;
-
+    private Android_JavaCV_Implementation pictureGetter = new Android_JavaCV_Implementation();
     /**
      * ************************* START COPYRIGHT MATERIAL *************************
      */
@@ -151,6 +152,11 @@ public class LiveLocatorFragment extends Fragment {
 //            // Show the full sized image.
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mImageView);
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mThumbnailImageView);
+            String result = buildingCompare("../../../assets/COA_2.JPG");
+            Intent intent = new Intent(this.getActivity(),DisplayBuildingNameActivity.class);
+            intent.putExtra(EXTRA_MSG, result);
+            startActivity(intent);
+
         } else {
             MainActivity.toast("Image Capture Failed");
         }
@@ -218,6 +224,8 @@ public class LiveLocatorFragment extends Fragment {
         //Has input of the photo path of photo to be compared to database
         //returns the String name of the building name to be inserted into the overlay
         //ORB Image Matching Algorithm found online will be implemented
+
+        buildingname = pictureGetter.match(photopath);
         return buildingname;
     }
 }
