@@ -1,10 +1,7 @@
 package mysteryinc.eagleeye.Tests;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.test.ActivityUnitTestCase;
-import android.test.InstrumentationTestCase;
-import android.view.Display;
 import android.widget.TextView;
 
 import mysteryinc.eagleeye.DisplayAbout;
