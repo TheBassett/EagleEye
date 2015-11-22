@@ -1,2 +1,2 @@
-include ':app', ':libraries', ':opencv-android-arm'
-include ':libraries:opencv'
+//include ':opencv-android-arm'
+include ':app', ':libraries', ':opencv-android-arm', ':libraries:opencv'

@@ -17,7 +17,7 @@ import org.bytedeco.javacpp.opencv_imgproc;
 public class Android_JavaCV_Implementation {
 
     //String cascade = new String("/Users/joelvandepolder/Desktop/cascade.xml");
-    String cascade = new String("../../../assets/cascades/cascade.xml");
+    String cascade = "../../../assets/cascades/cascade.xml";
     FaceRecognizer bldgRec = createLBPHFaceRecognizer();
     private CascadeClassifier faceCascade;
     double scale = 1.1;
@@ -50,7 +50,6 @@ public class Android_JavaCV_Implementation {
 
         return bldgRec.predict(testImg);
     }
-
 
     public String match(String path){
         Mat img = imread(path);
@@ -94,6 +93,7 @@ public class Android_JavaCV_Implementation {
 
 
     }
+
     public String callBuilding(int cB){
         String name = "";
         switch (cB) {

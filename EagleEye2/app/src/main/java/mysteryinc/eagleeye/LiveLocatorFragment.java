@@ -37,7 +37,6 @@ public class LiveLocatorFragment extends Fragment {
     private static String PictureDirPath;
     private static File pictureFilePath;
     private static boolean fileDirValid;
-    private Android_JavaCV_Implementation pictureGetter = new Android_JavaCV_Implementation();
     /**
      * ************************* START COPYRIGHT MATERIAL *************************
      */
@@ -152,14 +151,20 @@ public class LiveLocatorFragment extends Fragment {
 //            // Show the full sized image.
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mImageView);
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mThumbnailImageView);
-            String result = buildingCompare("../../../assets/COA_2.JPG");
-            Intent intent = new Intent(this.getActivity(),DisplayBuildingNameActivity.class);
-            intent.putExtra(EXTRA_MSG, result);
-            startActivity(intent);
+            testPicture();
 
         } else {
             MainActivity.toast("Image Capture Failed");
         }
+    }
+
+    private void testPicture(){
+        String result = buildingCompare("../../../assets/COA_2.JPG");
+//            Intent intent = new Intent(this.getActivity(),DisplayBuildingNameActivity.class);
+//            intent.putExtra(EXTRA_MSG, result);
+//            startActivity(intent);
+
+        MainActivity.toast("Result: " + result);
     }
 
     /**
@@ -194,7 +199,8 @@ public class LiveLocatorFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (fileDirValid) {
-                    takePicture();
+//                    takePicture();
+                    testPicture();
                 } else {
                     MainActivity.toast("Invalid picture directory - bad developer");
                 }
@@ -225,6 +231,7 @@ public class LiveLocatorFragment extends Fragment {
         //returns the String name of the building name to be inserted into the overlay
         //ORB Image Matching Algorithm found online will be implemented
 
+        Android_JavaCV_Implementation pictureGetter = new Android_JavaCV_Implementation();
         buildingname = pictureGetter.match(photopath);
         return buildingname;
     }
