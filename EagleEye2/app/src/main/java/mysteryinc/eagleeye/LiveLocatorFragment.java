@@ -244,6 +244,7 @@ public class LiveLocatorFragment extends Fragment {
 
         Android_JavaCV_Implementation pictureGetter = new Android_JavaCV_Implementation();
         buildingname = pictureGetter.match(photopath);
+        Log.e("image proc", "***********Building: "+buildingname);
         return buildingname;
     }
 }

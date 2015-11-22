@@ -4,6 +4,7 @@ package mysteryinc.eagleeye;
  * Created by jonathanrach on 11/20/15.
  */
 
+import android.os.Environment;
 import android.util.Log;
 
 import static org.bytedeco.javacpp.opencv_face.createLBPHFaceRecognizer;
@@ -19,7 +20,11 @@ import org.bytedeco.javacpp.opencv_imgproc;
 public class Android_JavaCV_Implementation {
 
     //String cascade = new String("/Users/joelvandepolder/Desktop/cascade.xml");
-    String cascade = "../../../assets/cascades/cascade.xml";
+//    String cascade = "../../../assets/cascades/cascade.xml";
+//    String cascadeTest = "../../../assets/cascades/test.xml";
+    String cascade = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EagleEyeTempPics/cascade.xml";
+    String cascadeTest = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EagleEyeTempPics/test.xml";
+
     FaceRecognizer bldgRec = createLBPHFaceRecognizer();
     private CascadeClassifier faceCascade;
     double scale = 1.1;
@@ -29,6 +34,7 @@ public class Android_JavaCV_Implementation {
     RectVector found = new RectVector();
 
     public void findBLDG(Mat img, RectVector res ){
+        MainActivity.toast("Beginning to find building...");
 //        Mat tmp = new Mat();
         faceCascade = new CascadeClassifier();
         faceCascade.load(cascade);
@@ -41,19 +47,24 @@ public class Android_JavaCV_Implementation {
 //        opencv_imgproc.cvtColor(img, tmp, opencv_imgproc.CV_BGRA2GRAY);//CV_BGR2GRAY);
 
         faceCascade.detectMultiScale(img, res, scale, minNeighbors, 0, minScaleSize, maxScaleSize);
+
+        MainActivity.toast("Finished finding building...");
     }
 
     public int BLDGRecognizer(String path){
+        MainActivity.toast("Beginning to recognize building...");
         FaceRecognizer bldgRec = createLBPHFaceRecognizer();
         //bldgRec.load("test.xml");
-        bldgRec.load("../../../assets/cascades/test.xml");
+        bldgRec.load(cascadeTest);
 
         Mat testImg = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
 
+        MainActivity.toast("Finishing recognize building...");
         return bldgRec.predict(testImg);
     }
 
     public String match(String path){
+        MainActivity.toast("Beginning to match...");
         Log.e("image proc", "***********file path: "+path);
 //        if (path.startsWith("/"))
 //        path = path.substring(1);
@@ -97,12 +108,12 @@ public class Android_JavaCV_Implementation {
             }
         }
 
+        MainActivity.toast("Finishing match (fake)...");
         return callBuilding(index);
-
-
     }
 
     public String callBuilding(int cB){
+        MainActivity.toast("Beginning to call building...");
         String name = "";
         switch (cB) {
             case 1:
@@ -141,8 +152,12 @@ public class Android_JavaCV_Implementation {
             case 29:
                 name ="COB";
                 break;
-
+            default:
+                name = "unknown building";
+                break;
         }
+
+        MainActivity.toast("Finishing call building...");
         return name;
     }
 
