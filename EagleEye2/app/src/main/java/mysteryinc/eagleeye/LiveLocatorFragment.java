@@ -159,7 +159,18 @@ public class LiveLocatorFragment extends Fragment {
     }
 
     private void testPicture(){
-        String result = buildingCompare("../../../assets/COA_2.JPG");
+        String path_temp = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EagleEyeTempPics/coa_2.jpg";
+        File file = new File(path_temp);
+        String result = "";
+        if (file.exists()) {
+            Log.e("image proc", "***********img exists***********");
+            result = buildingCompare(path_temp);
+        } else {
+            Log.e("image proc", "***********img DOESN'T exist***********");
+        }
+                //"../../../assets/COA_2.JPG");
+
+
 //            Intent intent = new Intent(this.getActivity(),DisplayBuildingNameActivity.class);
 //            intent.putExtra(EXTRA_MSG, result);
 //            startActivity(intent);

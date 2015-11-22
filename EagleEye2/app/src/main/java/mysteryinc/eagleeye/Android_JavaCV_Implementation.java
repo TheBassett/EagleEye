@@ -4,6 +4,8 @@ package mysteryinc.eagleeye;
  * Created by jonathanrach on 11/20/15.
  */
 
+import android.util.Log;
+
 import static org.bytedeco.javacpp.opencv_face.createLBPHFaceRecognizer;
 import static org.bytedeco.javacpp.opencv_imgcodecs.*;
 import org.bytedeco.javacpp.opencv_core.Mat;
@@ -24,10 +26,10 @@ public class Android_JavaCV_Implementation {
     int minNeighbors = 1;
     double minSizeRatio = .1f;
     double maxSizeRatio = .3f;
-    RectVector found;
+    RectVector found = new RectVector();
 
     public void findBLDG(Mat img, RectVector res ){
-        Mat tmp = new Mat();
+//        Mat tmp = new Mat();
         faceCascade = new CascadeClassifier();
         faceCascade.load(cascade);
         int width = img.size().width();
@@ -36,9 +38,9 @@ public class Android_JavaCV_Implementation {
         Size minScaleSize = new Size((int) Math.round(minSizeRatio * width), (int) Math.round(minSizeRatio * height));
         Size maxScaleSize = new Size((int) Math.round(maxSizeRatio * width), (int) Math.round(maxSizeRatio * height));
 
-        opencv_imgproc.cvtColor(img, tmp, opencv_imgproc.CV_BGR2GRAY);
+//        opencv_imgproc.cvtColor(img, tmp, opencv_imgproc.CV_BGRA2GRAY);//CV_BGR2GRAY);
 
-        faceCascade.detectMultiScale(tmp, res, scale, minNeighbors, 0, minScaleSize, maxScaleSize);
+        faceCascade.detectMultiScale(img, res, scale, minNeighbors, 0, minScaleSize, maxScaleSize);
     }
 
     public int BLDGRecognizer(String path){
@@ -52,7 +54,13 @@ public class Android_JavaCV_Implementation {
     }
 
     public String match(String path){
-        Mat img = imread(path);
+        Log.e("image proc", "***********file path: "+path);
+//        if (path.startsWith("/"))
+//        path = path.substring(1);
+        Mat img = imread(path, 0);
+        if (img.empty()) {
+            Log.e("image proc", "***********img null***********");
+        }
         findBLDG(img, found);
 
         int[] results = new int[(int) found.size()];
@@ -61,8 +69,8 @@ public class Android_JavaCV_Implementation {
         int buildingName;
 
         for (long n = 0; n < found.size(); n++ ){
-            Rect tmpRect = found.get(n);
-            Mat tmpMat = new Mat(img, tmpRect);
+//            Rect tmpRect = found.get(n);
+//            Mat tmpMat = new Mat(img, tmpRect);
 
             int id = BLDGRecognizer(path);
             results[(int) n] = id;
