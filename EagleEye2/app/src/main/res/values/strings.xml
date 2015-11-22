@@ -14,7 +14,7 @@
     <string name="action_about">About</string>
     <string name="title_activity_display_about">About</string>
 
-    <string name="about_text">Hello world!</string>
+    <string name="about_text"></string>
     <string name="splash_text">Eagle Eye</string>
     <string name="splash_text2">Dedicated to creating a mobile app to identify ERAU buildings</string>
     <string name="title_activity_display_building_name">DisplayBuildingNameActivity</string>

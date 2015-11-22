@@ -14,7 +14,8 @@ public class DisplayAbout extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(NavigationDrawerFragment.EXTRA_MESSAGE);
 
-        TextView textView = new TextView(this);
+        //TextView textView = new TextView(this);
+        TextView textView = (TextView) findViewById(R.id.about_text);
         textView.setTextSize(17);
 
         textView.setText(message);
