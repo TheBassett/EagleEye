@@ -37,18 +37,18 @@ public class JavaCV_PicProcessing {
 		faceCascade.detectMultiScale(tmp, res, scale, minNeighbors, 0, minScaleSize, maxScaleSize);	
 	}
 
-	public int BLDGRecognizer(String path){
+	public int BLDGRecognizer(Mat testImg){
 		FaceRecognizer bldgRec = createLBPHFaceRecognizer();
 		bldgRec.load("test.xml");
 
-		Mat testImg = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
+		//Mat testImg = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
 
 		return bldgRec.predict(testImg);
 	}
 
 
 	public String match(String path){
-		Mat img = imread(path);
+		Mat img = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
 		findBLDG(img, found);
 
 		int[] results = new int[(int) found.size()];
@@ -60,7 +60,7 @@ public class JavaCV_PicProcessing {
 			Rect tmpRect = found.get(n);
 			Mat tmpMat = new Mat(img, tmpRect);
 
-			int id = BLDGRecognizer(path);
+			int id = BLDGRecognizer(tmpMat);
 			results[(int) n] = id;
 			System.out.print(id);
 

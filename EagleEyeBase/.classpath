@@ -6,5 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/OpenCV"/>
 	<classpathentry kind="lib" path="/Users/joelvandepolder/Downloads/javacv-bin/javacpp.jar"/>
 	<classpathentry kind="lib" path="/Users/joelvandepolder/Downloads/javacv-bin/javacv.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
