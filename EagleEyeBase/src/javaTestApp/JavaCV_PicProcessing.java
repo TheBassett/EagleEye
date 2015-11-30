@@ -21,9 +21,13 @@ public class JavaCV_PicProcessing {
 	double minSizeRatio = .1f;
 	double maxSizeRatio = .3f;
 	RectVector found;
+	
+	public void main(String args[]){
+		System.out.println(match("/Users/joelvandepolder/Desktop/coa2.jpg"));
+	}
 
 	public void findBLDG(Mat img, RectVector res ){
-		Mat tmp = new Mat();
+		//Mat tmp = new Mat();
 		faceCascade = new CascadeClassifier();
 		faceCascade.load(cascade);
 		int width = img.size().width();
@@ -32,9 +36,9 @@ public class JavaCV_PicProcessing {
 		Size minScaleSize = new Size((int) Math.round(minSizeRatio * width), (int) Math.round(minSizeRatio * height));
 		Size maxScaleSize = new Size((int) Math.round(maxSizeRatio * width), (int) Math.round(maxSizeRatio * height));
 
-		opencv_imgproc.cvtColor(img, tmp, opencv_imgproc.CV_BGR2GRAY);
+		//opencv_imgproc.cvtColor(img, tmp, opencv_imgproc.CV_BGR2GRAY);
 
-		faceCascade.detectMultiScale(tmp, res, scale, minNeighbors, 0, minScaleSize, maxScaleSize);	
+		faceCascade.detectMultiScale(img, res, scale, minNeighbors, 0, minScaleSize, maxScaleSize);	
 	}
 
 	public int BLDGRecognizer(Mat testImg){
@@ -49,12 +53,12 @@ public class JavaCV_PicProcessing {
 
 	public String match(String path){
 		Mat img = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
+		found = new RectVector();
 		findBLDG(img, found);
 
 		int[] results = new int[(int) found.size()];
 
 		// the most frequene int naming building 
-		int buildingName;
 		
 		for (long n = 0; n < found.size(); n++ ){
 			Rect tmpRect = found.get(n);
@@ -62,9 +66,7 @@ public class JavaCV_PicProcessing {
 
 			int id = BLDGRecognizer(tmpMat);
 			results[(int) n] = id;
-			System.out.print(id);
-
-			
+			//System.out.print(id);	
 		}
 		
 		
@@ -79,13 +81,12 @@ public class JavaCV_PicProcessing {
 			
 			if ( testx[i] > largest ) {
 			      largest = testx[i];
-			      index = i;
-			      
-			  	
+			      index = i;  	
 		}
 		}
 
-		return callBuilding(index);
+		int id = BLDGRecognizer(img);
+		return callBuilding(id);
 
 
 	}

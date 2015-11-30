@@ -54,7 +54,7 @@ public class DeviceTestGUI extends Application {
 	
 	//Instantiate PicProcessing class
 
-	PicProcessing picnic = new PicProcessing();
+	JavaCV_PicProcessing picnic = new JavaCV_PicProcessing();
 	
 	//Method to display a popup with the matching building name passed by software
 	
@@ -121,12 +121,12 @@ public class DeviceTestGUI extends Application {
 			
 			//Take in image to display
 			try {
-				picnic.DetectObject(file.getAbsolutePath());
-				File done = new File("/Users/joelvandepolder/EagleEye/EagleEyeBase/result.jpeg");
+				//picnic.match(file.getAbsolutePath());
+				File done = new File(file.getAbsolutePath());
 				BufferedImage bufImg = ImageIO.read(done);
 				Image hope = SwingFXUtils.toFXImage(bufImg, null);
 				campusPic.setImage(hope);
-				popup(picnic.result); //Call method to display building name and pass matching building name
+				popup(picnic.match(file.getAbsolutePath())); //Call method to display building name and pass matching building name
 				//System.out.println();
 				
 				//Method for Image Processing and Recognition
