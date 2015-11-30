@@ -6,6 +6,7 @@ package mysteryinc.eagleeye;
 
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import static org.bytedeco.javacpp.opencv_face.createLBPHFaceRecognizer;
 import static org.bytedeco.javacpp.opencv_imgcodecs.*;
@@ -59,18 +60,21 @@ public class Android_JavaCV_Implementation {
     /**
      * This method uses a passed path to create a matrix of an image located at the path given and pass it to the bldgRec method to begin the process of finding the matching
      * building.
-     * @param path is a path that contains the location of the image to be used for comparison
+     * @param testImg is a path that contains the location of the image to be used for comparison
      * @return calls bldgRec.predict and passes it the grayscale matrix form of the user-taken image
      */
-    public int BLDGRecognizer(String path){
-        MainActivity.toast("Beginning to recognize building...");
+    public int BLDGRecognizer(Mat testImg){
+//        MainActivity.toast("Beginning to recognize building...");
+        Toast.makeText(MainActivity.getInstance().getApplicationContext(), "Beginning to recognize building...", Toast.LENGTH_LONG).show();
         FaceRecognizer bldgRec = createLBPHFaceRecognizer();
         //bldgRec.load("test.xml");
         bldgRec.load(cascadeTest);
 
-        Mat testImg = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
+        //Mat testImg = imread(path, CV_LOAD_IMAGE_GRAYSCALE);
 
-        MainActivity.toast("Finishing recognize building...");
+//        MainActivity.toast(building);
+        Toast.makeText(MainActivity.getInstance().getApplicationContext(), "Finishing recognize building...", Toast.LENGTH_LONG).show();
+
         return bldgRec.predict(testImg);
     }
 
@@ -81,6 +85,7 @@ public class Android_JavaCV_Implementation {
      * @return calls callBuilding and passes it the number value id of the building in the image with the closest match to those in the database
      */
     public String match(String path){
+        found = new RectVector();
         MainActivity.toast("Beginning to match...");
         Log.e("image proc", "***********file path: "+path);
 //        if (path.startsWith("/"))
@@ -89,20 +94,20 @@ public class Android_JavaCV_Implementation {
         if (img.empty()) {
             Log.e("image proc", "***********img null***********");
         }
-        findBLDG(img, found);
+//        findBLDG(img, found);
 
-        int[] results = new int[(int) found.size()];
+//        int[] results = new int[(int) found.size()];
 
-        // the most frequene int naming building
-        int buildingName;
-
+        // the most frequent int naming building
+//        int buildingName;
+/*
         for (long n = 0; n < found.size(); n++ ){
-//            Rect tmpRect = found.get(n);
-//            Mat tmpMat = new Mat(img, tmpRect);
+            Rect tmpRect = found.get(n);
+            Mat tmpMat = new Mat(img, tmpRect);
 
-            int id = BLDGRecognizer(path);
+            int id = BLDGRecognizer(tmpMat);
             results[(int) n] = id;
-            System.out.print(id);
+           // System.out.print(id);
 
 
         }
@@ -124,9 +129,10 @@ public class Android_JavaCV_Implementation {
 
             }
         }
-
+*/
+        int id = BLDGRecognizer(img);
         MainActivity.toast("Finishing match (fake)...");
-        return callBuilding(index);
+        return callBuilding(id);
     }
 
     /**
