@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">EagleEye</string>
 
+    <string name="about_text">This app was designed for the Fall 2015 SE 300 class with Dr. Jafer by the following developers:\n\n
+        Team Lead: Jessica Updegrove\n
+        Android Lead: Alex Bassett\n
+        Android Team: Alex Bassett, Jonathon Rach, Jessica Updegrove (assistance)\n
+        Image Processing Team: Dean Laga, Joel Vande Polder, Jessica Updegrove (assistance)\n
+        \nThis app is meant to be used on the ERAU DB campus to assist visitors, alumni, and new students as they
+        explore the ever-changing campus. To use, take a picture of a building on campus and the app will process
+        the image and return the name of the building. Additional features, such as a campus map and building directory
+        will be added in future versions.\n\nHave fun and we hope you enjoy the app.</string>
+
     <string name="title_section1">Live Locator</string>
     <string name="title_section2">Campus Directory</string>
     <string name="title_section3">Campus Map</string>
@@ -14,8 +24,8 @@
     <string name="action_about">About</string>
     <string name="title_activity_display_about">About</string>
 
-    <string name="about_text"></string>
     <string name="splash_text">Eagle Eye</string>
     <string name="splash_text2">Dedicated to creating a mobile app to identify ERAU buildings</string>
     <string name="title_activity_display_building_name">DisplayBuildingNameActivity</string>
+
 </resources>
