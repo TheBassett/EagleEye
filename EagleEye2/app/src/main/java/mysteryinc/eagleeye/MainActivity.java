@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity
 ///////
     public static MainActivity _instance;
 
-    private static Toast m_currentToast;
+//    private static Toast m_currentToast;
 
     /**
      * This method returns an instance of MainActivity
@@ -55,11 +55,12 @@ public class MainActivity extends AppCompatActivity
      * @param msg is a passed message to be added to the current toast
      */
     public static void toast(String msg) {
-        if (m_currentToast != null) {
-            m_currentToast.cancel();
-        }
-        m_currentToast = Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT);
-        m_currentToast.show();
+//        if (m_currentToast != null) {
+//            m_currentToast.cancel();
+//        }
+//        m_currentToast = Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT);
+//        m_currentToast.show();
+        Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
 //    public static Context getContext(){
