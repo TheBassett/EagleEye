@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -246,19 +247,30 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+//        Log.e("test", "...A menu button pressed");
         if (mDrawerToggle.onOptionsItemSelected(item)) {
+//            Log.e("test", "Options button pressed");
             return true;
         }
 
         // This method creates an intent and displays an about message.
         if (item.getItemId() == R.id.action_about) {
 
+//            Log.e("test", "About button pressed");
             // Testing
             Intent intent = new Intent(this.getActivity(), DisplayAbout.class);
             startActivity(intent);
 
             return true;
+        } else if (item.getItemId() == R.id.action_settings_local) {
+//            MainActivity.toast("COAS Building");
+//            Log.e("test", "Settings button pressed");
+//            Toast.makeText(MainActivity.getInstance().getApplicationContext(), "COAS Building", Toast.LENGTH_LONG).show();
+
+            return true;
         }
+
+        Log.e("test", "no know button was pressed...");
 
         return super.onOptionsItemSelected(item);
     }

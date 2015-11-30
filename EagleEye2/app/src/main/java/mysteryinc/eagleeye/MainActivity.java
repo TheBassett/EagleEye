@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity
 ///////
     public static MainActivity _instance;
 
-    private static Toast m_currentToast;
+//    private static Toast m_currentToast;
 
     public static MainActivity getInstance() {
         if (_instance == null) {
@@ -41,11 +41,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public static void toast(String msg) {
-        if (m_currentToast != null) {
-            m_currentToast.cancel();
-        }
-        m_currentToast = Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT);
-        m_currentToast.show();
+//        if (m_currentToast != null) {
+//            m_currentToast.cancel();
+//        }
+//        m_currentToast = Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT);
+//        m_currentToast.show();
+        Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
 //    public static Context getContext(){

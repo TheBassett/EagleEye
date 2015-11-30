@@ -7,9 +7,9 @@
         <!--android:title="@string/action_example"-->
         <!--app:showAsAction="withText|ifRoom" />-->
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_settings_local"
         android:orderInCategory="99"
-        android:title="@string/action_settings"
+        android:title="Settings Local"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
