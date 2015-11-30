@@ -1,5 +1,7 @@
 package mysteryinc.eagleeye;
-
+/**
+ * This class contains an example of the use of OpenCV in an Android application and is not used in the project.
+ */
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;

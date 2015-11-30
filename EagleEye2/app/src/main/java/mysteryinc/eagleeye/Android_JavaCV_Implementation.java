@@ -1,7 +1,7 @@
 package mysteryinc.eagleeye;
 
-/**
- * Created by jonathanrach on 11/20/15.
+/**This class contains the "back end" of the application: it contains all of the methods that use OpenCV and JavaCV libraries to perform the image recognition.
+ * Created by Joel and Dean for Java, created for Android application by Jonathan
  */
 
 import android.os.Environment;
@@ -18,7 +18,6 @@ import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 import org.bytedeco.javacpp.opencv_imgproc;
 
 public class Android_JavaCV_Implementation {
-
     //String cascade = new String("/Users/joelvandepolder/Desktop/cascade.xml");
 //    String cascade = "../../../assets/cascades/cascade.xml";
 //    String cascadeTest = "../../../assets/cascades/test.xml";
@@ -33,6 +32,12 @@ public class Android_JavaCV_Implementation {
     double maxSizeRatio = .3f;
     RectVector found = new RectVector();
 
+    /**
+     * This method uses a passed Matrix of an image and the passed Rectangular vector along with the cascade (a pre-trained included file) to match the passed image to that of
+     * one of the buildings on the ERAU-DB campus.
+     * @param img is a passed image matrix that is the picture taken by the user of the app
+     * @param res is a passed rectangular vector that is used to assist with the building recognition
+     */
     public void findBLDG(Mat img, RectVector res ){
         MainActivity.toast("Beginning to find building...");
 //        Mat tmp = new Mat();
@@ -51,6 +56,12 @@ public class Android_JavaCV_Implementation {
         MainActivity.toast("Finished finding building...");
     }
 
+    /**
+     * This method uses a passed path to create a matrix of an image located at the path given and pass it to the bldgRec method to begin the process of finding the matching
+     * building.
+     * @param path is a path that contains the location of the image to be used for comparison
+     * @return calls bldgRec.predict and passes it the grayscale matrix form of the user-taken image
+     */
     public int BLDGRecognizer(String path){
         MainActivity.toast("Beginning to recognize building...");
         FaceRecognizer bldgRec = createLBPHFaceRecognizer();
@@ -63,6 +74,12 @@ public class Android_JavaCV_Implementation {
         return bldgRec.predict(testImg);
     }
 
+    /**
+     * This method uses the passed path of a user-taken image and goes through a series of loops to compare the image to the project database several times to find the closest
+     * possible match.
+     * @param path is a passed value that contains the location of the image to be compared
+     * @return calls callBuilding and passes it the number value id of the building in the image with the closest match to those in the database
+     */
     public String match(String path){
         MainActivity.toast("Beginning to match...");
         Log.e("image proc", "***********file path: "+path);
@@ -112,6 +129,11 @@ public class Android_JavaCV_Implementation {
         return callBuilding(index);
     }
 
+    /**
+     * This method uses a passed value to return a string with the full name of the building.
+     * @param cB is the passed ID value of the building that has been matched
+     * @return returns the name of the matched building
+     */
     public String callBuilding(int cB){
         MainActivity.toast("Beginning to call building...");
         String name = "";
