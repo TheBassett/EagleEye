@@ -276,16 +276,6 @@ public class NavigationDrawerFragment extends Fragment {
 
             // Testing
             Intent intent = new Intent(this.getActivity(), DisplayAbout.class);
-            String message = "This app was designed for the Fall 2015 SE 300 class with Dr. Jafer by the following developers:\n\n" +
-                    "Team Lead: Jessica Updegrove\n" +
-                    "Android Lead: Alex Bassett\n" +
-                    "Android Team: Alex Bassett, Jonathan Rach, Jessica Updegrove (assistance)\n" +
-                    "Image Processing Team: Dean Laga, Joel Vande Polder, Jessica Updegrove (assistance)\n" +
-                    "\nThis app is meant to be used on the ERAU DB campus to assist visitors, alumni, and new students as they" +
-                    " explore the ever-changing campus. To use, take a picture of a building on campus and the app will process " +
-                    "the image and return the name of the building. Additional features, such as a campus map and building directory " +
-                    "will be added in future versions.\n\nHave fun and we hope you enjoy the app.";
-            intent.putExtra(EXTRA_MESSAGE, message);
             startActivity(intent);
 
             return true;
