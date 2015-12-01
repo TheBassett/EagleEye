@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//Jon was here
 
 /**
  * A placeholder fragment containing a simple view.

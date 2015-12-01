@@ -1,5 +1,8 @@
 package mysteryinc.eagleeye;
-
+/**
+ * This class contains the creation of a "Splash" page for display as the application is loading.
+ * Created by Jess Updegrove
+ */
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;

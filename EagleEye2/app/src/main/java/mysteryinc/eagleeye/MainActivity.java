@@ -1,5 +1,8 @@
 package mysteryinc.eagleeye;
-
+/**
+ * This class contains the MainActivity for the application. This class handles the main display for the application as well as all event handlers for the buttons within the application.
+ *
+ */
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity
 
 //    private static Toast m_currentToast;
 
+    /**
+     * This method returns an instance of MainActivity
+     * @return returns an instance of MainActivity
+     */
     public static MainActivity getInstance() {
         if (_instance == null) {
             _instance = new MainActivity();
@@ -36,10 +43,17 @@ public class MainActivity extends AppCompatActivity
         return _instance;
     }
 
+    /**
+     * Creates a variable for the current instance of MainActivity
+     */
     public MainActivity(){
         _instance = this;
     }
 
+    /**
+     * This method provides a method of logging to be implemented, so that different parts of the application can pass messages to the log
+     * @param msg is a passed message to be added to the current toast
+     */
     public static void toast(String msg) {
 //        if (m_currentToast != null) {
 //            m_currentToast.cancel();
@@ -54,6 +68,10 @@ public class MainActivity extends AppCompatActivity
 //    }
 ///////
 
+    /**
+     * This method contains all of the actions to initialize MainActivity as soon as it is created.
+     * @param savedInstanceState is a passed value that contains a saved instance state for if the application had been minimized and then resumed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +87,10 @@ public class MainActivity extends AppCompatActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
+    /**
+     * This method handles the selection of items within the Navigation Drawer
+     * @param position is a passed value of the location selected within the navigation drawer
+     */
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
@@ -97,6 +119,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * This method uses a passed number to set the titles to those of the proper section for each of the three sections attached.
+     * @param number is a passed number containing the number of the selected section
+     */
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
@@ -111,6 +137,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * This method is used to display the ActionBar with its proper title
+     */
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -118,7 +147,11 @@ public class MainActivity extends AppCompatActivity
         actionBar.setTitle(mTitle);
     }
 
-
+    /**
+     * This method is used to setup the options menu upon its creation
+     * @param menu is a passed menu to be modified through by this method
+     * @return returns super.onCreateOptionsMenu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!mNavigationDrawerFragment.isDrawerOpen()) {
@@ -132,6 +165,11 @@ public class MainActivity extends AppCompatActivity
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * This method contains the actions for if an item on the options menu is selected
+     * @param item is a passed item that contains the information of which item was selected
+     * @return returns true if the id of the selected option has action items tied to it and returns super.onOptionsItemsSelected if it does not.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -151,7 +189,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
+//Code commented out and not used in final production of the application.
 /*  Code for the comparing the images of the realtime system and the database
 IplImage img=cvLoadImage(" // insert image location ");
     CvSize cvSize = cvSize(img.width(), img.height());

@@ -9,12 +9,14 @@ import org.opencv.core.Point;
 import org.opencv.imgproc.Imgproc;
 
 import android.util.Log;
-
-
 /**
+ * This class contains an example of the use of OpenCV in an Android application and is not used in the project.
  * This class is a controller for puzzle game.
- * It converts the image from Camera into the shuffled image
+ * It converts the image from Camera into the shuffled image.
  */
+
+
+
 public class Puzzle15Processor {
 
     private static final int GRID_SIZE = 4;
