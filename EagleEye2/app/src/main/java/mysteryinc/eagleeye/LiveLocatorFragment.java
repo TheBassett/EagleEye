@@ -105,7 +105,7 @@ public class LiveLocatorFragment extends Fragment {
         return photoFile.getAbsolutePath();
     }
 
-    private boolean deviceMissingCamera() {
+    public boolean deviceMissingCamera() {
         Context context = getActivity();
         PackageManager packageManager = context.getPackageManager();
         return !packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA);
