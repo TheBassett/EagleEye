@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +38,11 @@ public class LiveLocatorFragment extends Fragment {
     private static String PictureDirPath;
     private static File pictureFilePath;
     private static boolean fileDirValid;
+
+    private static final int REQUEST_PICTURE = 1;
+    private static final int REQUEST_CROP_PICTURE = 2;
+    private static final int RESULT_OK = -1;
+    private static final int MEDIA_TYPE_IMAGE = 1;
     /**
      * ************************* START COPYRIGHT MATERIAL *************************
      */
@@ -69,46 +75,89 @@ public class LiveLocatorFragment extends Fragment {
     /**
      * Start the camera by dispatching a camera intent. Returns a string location to the photo.
      */
-    private String takePicture() {
+    private void takePicture() {
         // Check if there is a camera.
         if (deviceMissingCamera()) {
             MainActivity.toast("This device does not have a camera.");
-            return "";
+            return;
         }
 
-        // Camera exists? Then proceed...
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //use standard intent to capture an image
+        Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Uri fileUri = Uri.fromFile(getOutputMediaFile(MEDIA_TYPE_IMAGE)); // create a file to save the image
+        captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
-        // Ensure that there's a camera activity to handle the intent
-        Activity activity = getActivity();
-        File photoFile = null;
-        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            // Create the File where the photo should go.
-            // If you don't do this, you may get a crash in some devices.
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                ex.printStackTrace();
-                MainActivity.toast("There was a problem saving the photo...");
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri fileUri = Uri.fromFile(photoFile);
-//                activity.setCapturedImageURI(fileUri);
-//                activity.setCurrentPhotoPath(fileUri.getPath());
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-//                        activity.getCapturedImageURI());
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-            }
-        }
-        return photoFile.getAbsolutePath();
+        //we will handle the returned data in onActivityResult
+        startActivityForResult(captureIntent, REQUEST_PICTURE);//CAMERA_CAPTURE
+
+//        // Ensure that there's a camera activity to handle the intent
+//        Activity activity = getActivity();
+//        File photoFile = null;
+//        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+//            // Create the File where the photo should go.
+//            // If you don't do this, you may get a crash in some devices.
+//            try {
+//                photoFile = createImageFile();
+//            } catch (IOException ex) {
+//                // Error occurred while creating the File
+//                ex.printStackTrace();
+//                MainActivity.toast("There was a problem saving the photo...");
+//            }
+//            // Continue only if the File was successfully created
+//            if (photoFile != null) {
+//                Uri fileUri = Uri.fromFile(photoFile);
+////                activity.setCapturedImageURI(fileUri);
+////                activity.setCurrentPhotoPath(fileUri.getPath());
+//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+////                        activity.getCapturedImageURI());
+//                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+//            }
+//        }
+//        return photoFile.getAbsolutePath();
     }
 
     public boolean deviceMissingCamera() {
         Context context = getActivity();
         PackageManager packageManager = context.getPackageManager();
         return !packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA);
+    }
+
+    /**
+     * Create a File for saving an image or video
+     */
+    private static File getOutputMediaFile(int type) {
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "EagleEyeTempPics");
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("EagleEyeTempPics", "failed to create directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        if (type == MEDIA_TYPE_IMAGE) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                    "tempPicture.jpg");
+        }
+        /*else if (type == MEDIA_TYPE_VIDEO) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                    "VID_" + timeStamp + ".mp4");
+        } */
+        else {
+            return null;
+        }
+
+        return mediaFile;
     }
 
     /**
@@ -119,15 +168,17 @@ public class LiveLocatorFragment extends Fragment {
      */
     protected File createImageFile() throws IOException {
         // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//        String imageFileName = "JPEG_" + timeStamp + "_";
 //        File storageDir = Environment.getExternalStoragePublicDirectory(
 //                Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                pictureFilePath      /* directory */ //storageDir
-        );
+        String imageFileName = "tempPicture.jpg";
+        File image = new File(pictureFilePath + imageFileName);
+//        File image = new File(
+//                imageFileName,  /* prefix */
+//                ".jpg",         /* suffix */
+//                pictureFilePath      /* directory */ //storageDir
+//        );
 
         // Save a file: path for use with ACTION_VIEW intents
 //        CameraActivity activity = (CameraActivity)getActivity();
@@ -151,31 +202,37 @@ public class LiveLocatorFragment extends Fragment {
 //            // Show the full sized image.
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mImageView);
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mThumbnailImageView);
-            testPicture();
+
+            String path_temp = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EagleEyeTempPics/tempPicture.jpg";
+            testPicture(path_temp);
 
         } else {
             MainActivity.toast("Image Capture Failed");
         }
     }
 
-    private void testPicture(){
-        String path_temp = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EagleEyeTempPics/coa_2.jpg";
-        File file = new File(path_temp);
+    private void testPicture(String filename) {
+        File file = new File(filename);
         String result = "";
         if (file.exists()) {
             Log.e("image proc", "***********img exists***********");
-            result = buildingCompare(path_temp);
+            result = buildingCompare(filename);
         } else {
             Log.e("image proc", "***********img DOESN'T exist***********");
         }
-                //"../../../assets/COA_2.JPG");
+        //"../../../assets/COA_2.JPG");
 
 
 //            Intent intent = new Intent(this.getActivity(),DisplayBuildingNameActivity.class);
 //            intent.putExtra(EXTRA_MSG, result);
 //            startActivity(intent);
 
-        MainActivity.toast("Result: " + result);
+        MainActivity.toastLong("Result: " + result);
+    }
+
+    private void testPicture() {
+        String path_temp = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EagleEyeTempPics/coa_2.jpg";
+        testPicture(path_temp);
     }
 
     /**
@@ -210,8 +267,8 @@ public class LiveLocatorFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (fileDirValid) {
-//                    takePicture();
-                    testPicture();
+                    takePicture();
+//                    testPicture();
                 } else {
                     MainActivity.toast("Invalid picture directory - bad developer");
                 }
@@ -244,7 +301,7 @@ public class LiveLocatorFragment extends Fragment {
 
         Android_JavaCV_Implementation pictureGetter = new Android_JavaCV_Implementation();
         buildingname = pictureGetter.match(photopath);
-        Log.e("image proc", "***********Building: "+buildingname);
+        Log.e("image proc", "***********Building: " + buildingname);
         return buildingname;
     }
 }

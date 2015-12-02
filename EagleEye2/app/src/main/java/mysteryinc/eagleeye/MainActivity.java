@@ -60,6 +60,15 @@ public class MainActivity extends AppCompatActivity
 //        }
 //        m_currentToast = Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT);
 //        m_currentToast.show();
+        Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void toastLong(String msg) {
+//        if (m_currentToast != null) {
+//            m_currentToast.cancel();
+//        }
+//        m_currentToast = Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_SHORT);
+//        m_currentToast.show();
         Toast.makeText(getInstance().getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
 
