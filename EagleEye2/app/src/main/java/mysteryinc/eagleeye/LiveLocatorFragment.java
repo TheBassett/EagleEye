@@ -70,7 +70,7 @@ public class LiveLocatorFragment extends Fragment {
      */
 
     // Activity result key for camera
-    static final int REQUEST_TAKE_PHOTO = 11111;
+//    static final int REQUEST_TAKE_PHOTO = 11111;
 
     /**
      * Start the camera by dispatching a camera intent. Returns a string location to the photo.
@@ -195,16 +195,19 @@ public class LiveLocatorFragment extends Fragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_PICTURE && resultCode == Activity.RESULT_OK) {
 //            addPhotoToGallery();
 //            CameraActivity activity = (CameraActivity)getActivity();
 //
 //            // Show the full sized image.
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mImageView);
 //            setFullImageFromFilePath(activity.getCurrentPhotoPath(), mThumbnailImageView);
-
-            String path_temp = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EagleEyeTempPics/tempPicture.jpg";
-            testPicture(path_temp);
+            File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES), "EagleEyeTempPics");
+            File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "tempPicture.jpg");
+            testPicture(mediaFile);
+//            String path_temp = Environment.getExternalStorageDirectory().getAbsolutePath() + "/EagleEyeTempPics/tempPicture.jpg";
+//            testPicture(path_temp);
 
         } else {
             MainActivity.toast("Image Capture Failed");
@@ -213,10 +216,14 @@ public class LiveLocatorFragment extends Fragment {
 
     private void testPicture(String filename) {
         File file = new File(filename);
+        testPicture(file);
+    }
+
+    private void testPicture(File file) {
         String result = "";
         if (file.exists()) {
             Log.e("image proc", "***********img exists***********");
-            result = buildingCompare(filename);
+            result = buildingCompare(file.getAbsolutePath()); // filename
         } else {
             Log.e("image proc", "***********img DOESN'T exist***********");
         }
