@@ -1,19 +1,19 @@
 package mysteryinc.eagleeye;
 
-import android.app.Application;
 import android.content.Intent;
 import android.test.ActivityUnitTestCase;
-import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
+import mysteryinc.eagleeye.LiveLocatorFragment;
+import mysteryinc.eagleeye.MainActivity;
 
 /**
  * Created by Alex Bassett on 11/30/2015.
  */
-public class ActivityTest extends ActivityUnitTestCase<MainActivity> {
+public class MainActivityTest extends ActivityUnitTestCase<MainActivity> {
 
     Intent mLaunchIntent;
 
-    public ActivityTest() {
+    public MainActivityTest() {
         super(MainActivity.class);
     }
 
@@ -26,7 +26,7 @@ public class ActivityTest extends ActivityUnitTestCase<MainActivity> {
     }
 
     @MediumTest
-    public void cameraTest(){
+    public void testCamera(){
         assertFalse(LiveLocatorFragment.get_instance().deviceMissingCamera());
     }
 }

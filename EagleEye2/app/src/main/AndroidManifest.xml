@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="mysteryinc.eagleeye">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="mysteryinc.eagleeye">
 
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <application android:allowBackup="true" android:icon="@mipmap/eagleeye_launcher"
-        android:label="@string/app_name" android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:label="@string/app_name">
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/eagleeye_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
 
 
-        <activity android:name=".Splash" android:label="@string/app_name">
+        <activity
+            android:name=".Splash"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,24 +36,30 @@
 
 
         <!--<activity android:name=".Puzzle15Activity" android:label="Puzzle 15">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
         <!--</activity>-->
 
 
-        <activity android:name=".DisplayAbout" android:label="@string/title_activity_display_about"
+        <activity
+            android:name=".DisplayAbout"
+            android:label="@string/title_activity_display_about"
             android:parentActivityName=".MainActivity">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value="mysteryinc.eagleeye.MainActivity" />
         </activity>
 
 
-        <activity android:name=".DisplayBuildingNameActivity"
+        <activity
+            android:name=".DisplayBuildingNameActivity"
             android:label="@string/title_activity_display_building_name"
-            android:parentActivityName=".MainActivity" android:theme="@style/AppTheme.NoActionBar">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value="mysteryinc.eagleeye.MainActivity" />
         </activity>
 

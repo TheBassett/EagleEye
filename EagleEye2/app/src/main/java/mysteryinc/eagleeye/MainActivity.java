@@ -3,7 +3,6 @@ package mysteryinc.eagleeye;
  * This class contains the MainActivity for the application. This class handles the main display for the application as well as all event handlers for the buttons within the application.
  *
  */
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
